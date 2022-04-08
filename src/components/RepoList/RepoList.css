@@ -1,6 +1,6 @@
 .repo-list {
   width: 50%;
-  row-gap: 1rem;
+  row-gap: 1.5rem;
   display: flex;
   flex-direction: column;
 }
