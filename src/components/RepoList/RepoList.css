@@ -1,0 +1,19 @@
+.repo-list {
+  width: 50%;
+  row-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.repo-list-title {
+  color: rgb(30, 50, 75);
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.repo-list hr {
+  height: 0.4rem;
+  background-color: rgb(30, 50, 75);
+  border: 0.1rem solid rgb(30, 50, 75);
+  border-radius: 0.5rem;
+}

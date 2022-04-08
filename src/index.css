@@ -1,6 +1,15 @@
-body {
+* {
   margin: 0;
-  font-family: "Quicksand", sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Chakra Petch", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
