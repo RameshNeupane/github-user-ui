@@ -1,38 +1,48 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { setRepos } from "../../actions/repos";
-import { RepoType } from "../../types/types";
-import Repo from "../Repo";
+
 import "./RepoList.css";
+import Repo from "../Repo";
+import { UsernameType } from "../../types/username";
+import { fetchRepos } from "../../redux/repos/action";
+import { ReposStateType, RepoType } from "../../types/repos";
 
 const RepoList = () => {
-  const repos = useSelector<RootStateOrAny, any>(
-    (state: RootStateOrAny) => state.reposReducer
-  );
   const dispatch = useDispatch();
-
-  const getRepoList = async (url: string) => {
-    const response = await axios.get(url);
-    const data = await response.data;
-    dispatch(setRepos(data));
-  };
+  const username = useSelector<RootStateOrAny, UsernameType>(
+    (state) => state.username
+  );
+  const repos = useSelector<RootStateOrAny, ReposStateType>(
+    (state) => state.repos
+  );
 
   useEffect(() => {
-    getRepoList(
-      "https://api.github.com/users/RameshNeupane/repos?sort=created"
-    );
-  }, []);
+    if (username.username) {
+      dispatch(fetchRepos(username.username));
+    }
+  }, [username, dispatch]);
 
-  return (
-    <div className="repo-list">
-      <h1 className="repo-list-title">Repositories</h1>
-      <hr />
-      {repos.map((repo: RepoType) => {
-        return <Repo key={repo.id} repo={repo} />;
-      })}
-    </div>
-  );
+  if (repos?.loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (repos?.error?.message) {
+    return <div className="error">{repos.error.message}</div>;
+  }
+
+  if (repos?.data?.length) {
+    return (
+      <div className="repo-list">
+        <h1 className="repo-list-title">Repositories</h1>
+        <hr />
+        {repos?.data?.map((repo: RepoType) => {
+          return <Repo key={repo.id} repo={repo} />;
+        })}
+      </div>
+    );
+  } else {
+    return <div></div>;
+  }
 };
 
 export default RepoList;

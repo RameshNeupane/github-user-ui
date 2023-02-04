@@ -1,97 +1,87 @@
-import "./Profile.css";
-import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import { useEffect } from "react";
-import axios from "axios";
-import { setProfile } from "../../actions/profile";
 import { FaGithub, FaGlobe, FaMapMarkerAlt } from "react-icons/fa";
+import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
+
+import "./Profile.css";
+import { UsernameType } from "../../types/username";
+import { ProfileStateType } from "../../types/profile";
+import { fetchProfile } from "../../redux/profile/action";
 
 const Profile = () => {
-  const profile = useSelector<RootStateOrAny, any>(
-    (state: RootStateOrAny) => state.profileReducer
-  );
   const dispatch = useDispatch();
-
-  const getProfile = async (url: string) => {
-    const response = await axios.get(url);
-    const data = await response.data;
-    const {
-      avatar_url,
-      login,
-      html_url,
-      name,
-      blog,
-      location,
-      bio,
-      followers,
-      following,
-    } = data;
-    dispatch(
-      setProfile({
-        avatar_url,
-        login,
-        html_url,
-        name,
-        blog,
-        location,
-        bio,
-        followers,
-        following,
-      })
-    );
-  };
+  const username = useSelector<RootStateOrAny, UsernameType>(
+    (state) => state.username
+  );
+  const profile = useSelector<RootStateOrAny, ProfileStateType>(
+    (state) => state.profile
+  );
 
   useEffect(() => {
-    getProfile("https://api.github.com/users/RameshNeupane");
-  }, []);
+    if (username.username) {
+      dispatch(fetchProfile(username.username));
+    }
+  }, [username, dispatch]);
 
-  return (
-    <div className="profile">
-      <div className="profile-img-container">
-        <img
-          src={profile.avatar_url}
-          alt={profile.name}
-          className="profile-img"
-        />
-      </div>
-      <div>
-        <FaGithub />{" "}
-        <a
-          href={profile.html_url}
-          target="_blank"
-          rel="noreferrer"
-          className="username"
-          title="Github"
-        >
-          {profile.login}
-        </a>
-      </div>
-      <div className="fullname">{profile.name}</div>
-      <div className="location">
-        <FaMapMarkerAlt /> {profile.location}
-      </div>
-      <div className="bio">{profile.bio}</div>
-      <div className="follower-following">
-        <div className="followers">
-          <span>{profile.followers}</span>
-          <span>followers</span>
+  if (profile?.loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (profile?.error?.message) {
+    return <div className="error">{profile.error.message}</div>;
+  }
+
+  if (profile?.data?.name) {
+    return (
+      <div className="profile">
+        <div className="profile-img-container">
+          <img
+            src={profile.data?.avatar_url}
+            alt={profile?.data?.name}
+            className="profile-img"
+          />
         </div>
-        <div className="following">
-          <span>{profile.following}</span>
-          <span>following</span>
+        <div>
+          <FaGithub />{" "}
+          <a
+            href={profile?.data?.html_url}
+            target="_blank"
+            rel="noreferrer"
+            className="username"
+            title="Github"
+          >
+            {profile?.data?.login}
+          </a>
+        </div>
+        <div className="fullname">{profile?.data?.name}</div>
+        <div className="location">
+          <FaMapMarkerAlt /> {profile?.data?.location}
+        </div>
+        <div className="bio">{profile?.data?.bio}</div>
+        <div className="follower-following">
+          <div className="followers">
+            <span>{profile?.data?.followers}</span>
+            <span>followers</span>
+          </div>
+          <div className="following">
+            <span>{profile?.data?.following}</span>
+            <span>following</span>
+          </div>
+        </div>
+        <div className="website">
+          <a
+            href={profile?.data?.blog}
+            target="_blank"
+            rel="noreferrer"
+            title="portfolio website"
+          >
+            <FaGlobe />
+          </a>
         </div>
       </div>
-      <div className="website">
-        <a
-          href={profile.blog}
-          target="_blank"
-          rel="noreferrer"
-          title="portfolio website"
-        >
-          <FaGlobe />
-        </a>
-      </div>
-    </div>
-  );
+    );
+  } else {
+    return <div></div>;
+  }
 };
 
 export default Profile;

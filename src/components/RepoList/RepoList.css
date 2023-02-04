@@ -13,6 +13,7 @@
 
 .repo-list hr {
   height: 0.4rem;
+  width: 100%;
   background-color: rgb(30, 50, 75);
   border: 0.1rem solid rgb(30, 50, 75);
   border-radius: 0.5rem;

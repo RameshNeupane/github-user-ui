@@ -18,8 +18,8 @@
 
 .repo-name {
   font-size: 2.5rem;
-  /* font-weight: bold; */
-  text-align: center;
+  text-align: left;
+  width: max-content;
 }
 
 .repo-star {
@@ -31,7 +31,8 @@
   font-size: 1.2rem;
 }
 
-.repo-link {
+.repo-link,
+.homepage-link {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +40,12 @@
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-size: 1.5rem;
-  /* font-weight: bold; */
+}
+
+.repo-link a,
+.homepage-link a {
+  width: max-content;
+  text-align: center;
 }
 
 .description {

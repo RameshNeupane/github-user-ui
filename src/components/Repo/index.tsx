@@ -1,10 +1,12 @@
 import { FaStar } from "react-icons/fa";
-import { RepoProps } from "../../types/types";
+
 import "./Repo.css";
+import { RepoProps } from "../../types/repos";
 
 const Repo = ({ repo }: RepoProps) => {
-  const { name, stargazers_count, html_url, description, language } = repo;
-  console.log(stargazers_count);
+  const { name, stargazers_count, html_url, description, language, homepage } =
+    repo;
+
   return (
     <div className="repo">
       <div className="repo-top">
@@ -20,6 +22,13 @@ const Repo = ({ repo }: RepoProps) => {
             view repo
           </a>
         </div>
+        {homepage && (
+          <div className="homepage-link">
+            <a href={homepage} target="_blank" rel="noreferrer">
+              view demo
+            </a>
+          </div>
+        )}
       </div>
       <p className="description">{description}</p>
       <div className="language">made with: {language}</div>

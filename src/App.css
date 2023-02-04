@@ -2,10 +2,12 @@
   width: 100vw;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   background-color: rgba(255, 255, 255, 0.1);
   padding: 2rem 0;
-  column-gap: 1rem;
+  gap: 2rem;
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -16,4 +18,18 @@ a {
 
 a:hover {
   color: rgb(100, 205, 245);
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.error,
+.loading,
+.info {
+  color: black;
+  font-size: 2rem;
+  font-weight: 500;
 }

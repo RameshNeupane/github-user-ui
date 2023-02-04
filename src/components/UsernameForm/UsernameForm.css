@@ -1,0 +1,49 @@
+.form {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  width: 600px;
+  border-bottom: 5px solid rgba(30, 50, 75, 0.9);
+  padding: 2rem;
+}
+
+.form-username {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-username label {
+  color: black;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.form-username input {
+  width: inherit;
+  outline: none;
+  border: 2px solid rgba(30, 50, 75, 0.9);
+  border-radius: 5px;
+  height: 5rem;
+  padding-left: 1rem;
+  font-size: 1.5rem;
+}
+
+.form-btn {
+  width: max-content;
+  height: 5rem;
+  padding: 0 2rem;
+  outline: none;
+  border: 2px solid rgba(30, 50, 75, 0.9);
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.form-btn:hover {
+  background-color: rgba(30, 50, 75, 0.9);
+  color: white;
+  cursor: pointer;
+}
