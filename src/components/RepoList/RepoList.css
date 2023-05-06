@@ -18,3 +18,9 @@
   border: 0.1rem solid rgb(30, 50, 75);
   border-radius: 0.5rem;
 }
+
+@media screen and (max-width: 1024px) {
+  .repo-list {
+    width: 90%;
+  }
+}
